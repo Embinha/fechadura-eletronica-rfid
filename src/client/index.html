@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+  Interface web da fechadura (cliente).
+  Esta página é gerada e servida pelo próprio ESP32 na rota GET / (função paginaInicial()
+  em src/esp32/fechadura_web/fechadura_web.ino). Este arquivo é uma cópia legível do
+  mesmo HTML, com dados de exemplo, para documentação. Para usar de verdade, acesse
+  http://<IP do ESP32>/ e faça login.
+-->
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fechadura</title>
+  <style>
+    body{font-family:sans-serif;max-width:640px;margin:20px auto;padding:0 12px}
+    button{padding:8px 14px;cursor:pointer}
+    input{padding:6px;margin:2px}
+    table{border-collapse:collapse;width:100%}
+    td,th{border:1px solid #ccc;padding:6px;text-align:left}
+    .abrir{font-size:18px;background:#1e2761;color:#fff;border:0;border-radius:6px}
+  </style>
+</head>
+<body>
+  <h1>Fechadura eletronica</h1>
+  <p>Status: <b>TRAVADA</b></p>
+
+  <!-- POST /abrir: destrava a porta por 3 s -->
+  <form method="POST" action="/abrir"><button class="abrir">Abrir porta</button></form>
+
+  <h2>Cartoes autorizados</h2>
+  <table>
+    <tr><th>UID</th><th>Nome</th><th></th></tr>
+    <tr>
+      <td>02 DD 80 05</td><td>Almir</td>
+      <td>
+        <!-- POST /apagar: remove o cartao -->
+        <form method="POST" action="/apagar" style="margin:0">
+          <input type="hidden" name="uid" value="02 DD 80 05">
+          <button>Apagar</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Cadastrar cartao</h2>
+  <p>Aproxime o cartao do leitor e clique em "Usar ultimo lido".</p>
+  <!-- POST /cadastrar: adiciona um cartao (uid, nome) -->
+  <form method="POST" action="/cadastrar">
+    <input id="uid" name="uid" placeholder="UID" required>
+    <button type="button" id="usarUltimo">Usar ultimo lido</button><br>
+    <input name="nome" placeholder="Nome do dono" maxlength="30" required>
+    <button>Cadastrar</button>
+  </form>
+
+  <h2>Log de acessos</h2>
+  <table id="log">
+    <tr><td>06/11 16:29:35 - NEGADO - cartao desconhecido 11 F8 46 A2</td></tr>
+    <tr><td>06/11 16:29:30 - LIBERADO - Cartao 02 DD 80 05 (Almir)</td></tr>
+    <tr><td>06/11 16:26:02 - LIBERADO - Navegador (172.20.10.3)</td></tr>
+    <tr><td>+1s - Sistema iniciado</td></tr>
+  </table>
+  <p><a href="/">Atualizar</a></p>
+
+  <script src="app.js"></script>
+</body>
+</html>

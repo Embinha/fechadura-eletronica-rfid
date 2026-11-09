@@ -1,0 +1,127 @@
+============================================================
+ TESTE DAS ROTAS HTTP - FECHADURA ELETRONICA
+ Servidor: http://192.168.0.11   Data: 06/11/2026 16:18:09,57
+============================================================
+
+[0a] GET / SEM login (esperado: 401 Unauthorized)
+HTTP/1.1 401 Unauthorized
+Content-Type: text/html
+WWW-Authenticate: Basic realm="Fechadura"
+Content-Length: 31
+Connection: close
+
+Acesso negado: login necessario
+
+[0b] GET / com senha ERRADA (esperado: 401 e "LOGIN RECUSADO" no log)
+HTTP/1.1 401 Unauthorized
+Content-Type: text/html
+WWW-Authenticate: Basic realm="Fechadura"
+Content-Length: 31
+Connection: close
+
+Acesso negado: login necessario
+
+[0c] POST /abrir SEM login (esperado: 401, a porta NAO abre)
+HTTP/1.1 401 Unauthorized
+Content-Type: text/html
+WWW-Authenticate: Basic realm="Fechadura"
+Content-Length: 31
+Connection: close
+
+Acesso negado: login necessario
+
+[1] GET /  - pagina principal com login (esperado: 200)
+HTTP 200 - 1832 bytes - 0.042896 s
+
+[2] GET /ultimo - ultimo cartao lido (esperado: 200)
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 11
+Connection: close
+
+02 DD 80 05
+
+[3] POST /cadastrar - cartao de teste (esperado: 303)
+HTTP/1.1 303 See Other
+Content-Type: text/html
+Location: /
+Content-Length: 0
+Connection: close
+
+
+[4] POST /cadastrar - mesmo cartao de novo (esperado: 409 Cartao ja cadastrado)
+HTTP/1.1 409 Conflict
+Content-Type: text/plain
+Content-Length: 20
+Connection: close
+
+Cartao ja cadastrado
+
+[5] POST /cadastrar - campos vazios (esperado: 400)
+HTTP/1.1 400 Bad Request
+Content-Type: text/plain
+Content-Length: 27
+Connection: close
+
+UID e nome sao obrigatorios
+
+[6] POST /abrir - abertura remota (esperado: 303 e o rele clica)
+HTTP/1.1 303 See Other
+Content-Type: text/html
+Location: /
+Content-Length: 0
+Connection: close
+
+
+[7] GET /abrir - metodo errado (esperado: 404, GET nao abre a porta)
+HTTP/1.1 404 Not Found
+Content-Type: text/html
+Content-Length: 17
+Connection: close
+
+Not found: /abrir
+
+[8] POST /apagar - remove o cartao de teste (esperado: 303)
+HTTP/1.1 303 See Other
+Content-Type: text/html
+Location: /
+Content-Length: 0
+Connection: close
+
+
+[9] POST /apagar - cartao inexistente (esperado: 404)
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Content-Length: 21
+Connection: close
+
+Cartao nao encontrado
+
+[10] GET /log - log depois dos testes (esperado: 200)
+<tr><td>06/11 16:18:11 - Cartao removido: TE ST 00 01 (Teste cURL)</td></tr><tr><td>06/11 16:18:11 - LIBERADO - Navegador (192.168.0.4)</td></tr><tr><td>06/11 16:18:11 - Cartao cadastrado: TE ST 00 01 (Teste cURL)</td></tr><tr><td>06/11 16:18:10 - LOGIN RECUSADO - 192.168.0.4</td></tr><tr><td>06/11 16:17:49 - LIBERADO - Cartao 02 DD 80 05 (Almir)</td></tr><tr><td>06/11 16:13:28 - LIBERADO - Cartao 02 DD 80 05 (Almir)</td></tr><tr><td>+5s - Sistema iniciado</td></tr>
+
+[11] Teste de carga - 20 pedidos seguidos em GET /log
+pedido 1: HTTP 200 em 0.068240 s
+pedido 2: HTTP 200 em 0.040841 s
+pedido 3: HTTP 200 em 0.044007 s
+pedido 4: HTTP 200 em 0.039178 s
+pedido 5: HTTP 200 em 0.043523 s
+pedido 6: HTTP 200 em 0.042485 s
+pedido 7: HTTP 200 em 0.041075 s
+pedido 8: HTTP 200 em 0.044858 s
+pedido 9: HTTP 200 em 0.044268 s
+pedido 10: HTTP 200 em 0.071053 s
+pedido 11: HTTP 200 em 0.037741 s
+pedido 12: HTTP 200 em 0.020470 s
+pedido 13: HTTP 200 em 0.042995 s
+pedido 14: HTTP 200 em 0.041133 s
+pedido 15: HTTP 200 em 0.045173 s
+pedido 16: HTTP 200 em 0.043594 s
+pedido 17: HTTP 200 em 0.046360 s
+pedido 18: HTTP 200 em 0.037885 s
+pedido 19: HTTP 200 em 0.044511 s
+pedido 20: HTTP 200 em 0.048186 s
+
+============================================================
+ FIM DOS TESTES
+============================================================
