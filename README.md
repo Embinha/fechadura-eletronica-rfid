@@ -168,3 +168,4 @@ README.md
 
 - Gabriel Cavalheiro de Oliveira: montagem e testes do hardware (ESP32, RC522, relé e fechadura), firmware do ESP32, testes das rotas HTTP, maquete impressa em 3D, documentação do repositório e relatório técnico; demonstração ao vivo na apresentação.
 •⁠  ⁠Rodolfo Loures Bueno Belle: estudo e apresentação do hardware (componentes, ligações e separação dos circuitos de controle e de 12 V).
+Kauan Gomes Pains: estudo e apresentação da parte de rede e do código (servidor HTTP, rotas, protocolos TCP/HTTP e login).
