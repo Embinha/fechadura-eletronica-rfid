@@ -163,3 +163,7 @@ README.md
 - A página tem login, mas sem HTTPS a senha trafega sem criptografia na rede, e ela é fixa no código.
 - O log fica na RAM e se perde quando o ESP32 reinicia.
 - O ESP32 precisa da rede disponível ao ligar, porque espera o Wi-Fi antes de iniciar o leitor.
+
+## Contribuições
+
+- Gabriel Cavalheiro de Oliveira: montagem e testes do hardware (ESP32, RC522, relé e fechadura), firmware do ESP32, testes das rotas HTTP, maquete impressa em 3D, documentação do repositório e relatório técnico; demonstração ao vivo na apresentação.
