@@ -173,3 +173,6 @@ README.md
 - ⁠Rodolfo Loures Bueno Belle: estudo e apresentação do hardware (componentes, ligações e separação dos circuitos de controle e de 12 V).
 
 - Kauan Gomes Pains: estudo e apresentação da parte de rede e do código (servidor HTTP, rotas, protocolos TCP/HTTP e login).
+
+- Eduardo Reis Silva: análise de segurança e limitações do sistema;
+conclusão da apresentação.
